@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taskify - Task Manager App
+
+A simple task manager built with Next.js 15, Supabase, and shadcn/ui.
+
+## Features
+
+- ✅ User authentication (signup, login, logout)
+- ✅ Create, update, and delete tasks
+- ✅ Mark tasks as completed
+- ✅ Row-level security for data protection
+- ✅ Responsive design with shadcn/ui
+- ✅ Server-side rendering with Next.js App Router
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Backend**: Supabase (Auth, Database)
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- pnpm
+- Supabase account
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/wheza99/taskify-app.git
+cd taskify-app
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Set up Supabase
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Go to [supabase.com](https://supabase.com) and create a new project
+2. Go to Project Settings > API and copy your:
+   - Project URL
+   - anon/public key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Go to the SQL Editor in your Supabase dashboard and run the contents of `supabase/schema.sql`
 
-## Learn More
+### 3. Set up environment variables
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cp .env.local.example .env.local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit `.env.local` with your Supabase credentials:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
 
-## Deploy on Vercel
+### 4. Run the development server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deployment to Vercel
+
+### Option 1: Via Vercel CLI
+
+```bash
+# Install Vercel CLI
+pnpm i -g vercel
+
+# Login to Vercel
+vercel login
+
+# Deploy
+vercel --prod
+```
+
+### Option 2: Via GitHub
+
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Import your repository
+4. Add environment variables in Vercel dashboard
+5. Deploy
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Home/landing page
+│   ├── login/page.tsx      # Login page
+│   ├── signup/page.tsx     # Signup page
+│   └── dashboard/page.tsx  # Dashboard (protected)
+├── components/
+│   ├── ui/                 # shadcn/ui components
+│   ├── auth/               # Auth components
+│   └── tasks/              # Task components
+├── lib/
+│   └── supabase/           # Supabase client utilities
+├── types/
+│   └── database.ts         # TypeScript types
+└── middleware.ts           # Auth middleware
+```
+
+## License
+
+MIT
